@@ -1,0 +1,156 @@
+﻿@model IEnumerable<SMSProject.ViewModels.UserViewModel>
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+
+@section Styles
+{
+    <link href="~/assets/plugins/datatables/datatables.bundle.css" rel="stylesheet" />
+}
+
+<div class="alert bg-light-primary border border-primary border-3 border-dashed d-flex justify-content-between flex-sm-row w-100 p-5 mb-10">
+    <div class="d-flex align-items-center">
+        <div class="symbol symbol-40px me-4">
+            <div class="symbol-label fs-2 fw-semibold text-success">
+                <!--begin::Svg Icon | path: icons/duotune/general/gen002.svg-->
+                <span class="svg-icon svg-icon-2 svg-icon-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
+                        <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8Zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022ZM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816ZM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0Zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z" />
+                    </svg>
+                </span>
+                <!--end::Svg Icon-->
+            </div>
+        </div>
+        <!--begin::Content-->
+        <div class="d-flex flex-column pe-0 pe-sm-10">
+            <h3 class="card-title">
+
+                All Users
+            </h3>
+        </div>
+        <!--end::Content-->
+    </div>
+    <!--begin::button-->
+    <div class="card-toolbar">
+        <div>
+            <a asp-controller="Users" asp-action="Create" class="btn btn-sm btn-primary">
+                <i class="bi bi-plus-square-dotted"></i>
+                Add New
+            </a>
+        </div>
+    </div>
+    <!--end::button-->
+</div>
+
+
+
+
+<div class="card shadow-sm">
+    <partial name="_DataTableHeader" />
+
+    <div class="card-body">
+        @if (!Model.Any())
+        {
+            <div class="alert alert-dismissible bg-light-warning border border-warning border-dashed d-flex flex-column flex-sm-row w-100 p-5 mb-10">
+                <!--begin::Icon-->
+                <!--begin::Svg Icon | path: icons/duotune/communication/com003.svg-->
+                <span class="svg-icon svg-icon-2hx svg-icon-warning me-4 mb-5 mb-sm-0">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="currentColor" />
+                        <rect x="11" y="14" width="7" height="2" rx="1" transform="rotate(-90 11 14)" fill="currentColor" />
+                        <rect x="11" y="17" width="2" height="2" rx="1" transform="rotate(-90 11 17)" fill="currentColor" />
+                    </svg>
+                </span>
+                <!--end::Svg Icon-->
+                <!--end::Icon-->
+                <!--begin::Content-->
+                <div class="d-flex flex-column pe-0 pe-sm-10 align-self-center">
+                    <h5 class="mb-1">No Users are added yet !</h5>
+                </div>
+                <!--end::Content-->
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table id="kt_datatable_example" class="table table-row-dashed table-row-gray-300 gy-7">
+                    <thead>
+                        <tr class="fw-bold fs-7 table-warning text-gray-800">
+                            <th>Full Name</th>
+                            <th>UserName</th>
+                            <th>Email</th>
+                            <th>Activation</th>
+                            <th>Created On</th>
+                            <th>Last Updated On</th>
+                            @*<th>Last Updated By</th>*@
+                            <th>Situation</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model)
+                        {
+                            <tr>
+                                <td>@user.FullName</td>
+                                <td>@user.Username</td>
+                                <td>@user.Email</td>
+                                <td>
+                                    <span class="badge badge-light-@(user.IsDeleted ? "danger" : "success") js-status">
+                                        @(user.IsDeleted ? "Not Active" : "Active")
+                                    </span>
+                                </td>
+                                <td>@user.CreaetdOn</td>
+                                <td class="js-updated-on">@user.LastUpdatedOn</td>
+                                @*<td class="js-updated-on">@user.LastUpdatedById</td>*@
+                                @* <td>
+                                    <span class="badge badge-light-@(user.EmailConfirmed ? "success" : "danger") js-status4">
+                                        @(user.EmailConfirmed ? "Active" : "Not Active")
+                                    </span>
+                                </td> *@
+                                <th class="text-gray-900" scope="row">
+                                    @* Edit *@
+                                    <a class="manageIcons" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" asp-action="Edit" asp-route-Id="@user.Id" asp-route-ReturnUrl="@Context.Request.Path">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00328C" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                            <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
+                                        </svg>
+                                    </a>
+                                    @* Change Password *@
+                                    <a class="manageIcons" data-bs-toggle="tooltip" data-bs-placement="top" title="Reset password" asp-action="Reset" asp-route-Id="@user.Id" asp-route-ReturnUrl="@Context.Request.Path">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#f9ba0d" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M8 0c-.69 0-1.843.265-2.928.56-1.11.3-2.229.655-2.887.87a1.54 1.54 0 0 0-1.044 1.262c-.596 4.477.787 7.795 2.465 9.99a11.777 11.777 0 0 0 2.517 2.453c.386.273.744.482 1.048.625.28.132.581.24.829.24s.548-.108.829-.24a7.159 7.159 0 0 0 1.048-.625 11.775 11.775 0 0 0 2.517-2.453c1.678-2.195 3.061-5.513 2.465-9.99a1.541 1.541 0 0 0-1.044-1.263 62.467 62.467 0 0 0-2.887-.87C9.843.266 8.69 0 8 0zm0 5a1.5 1.5 0 0 1 .5 2.915l.385 1.99a.5.5 0 0 1-.491.595h-.788a.5.5 0 0 1-.49-.595l.384-1.99A1.5 1.5 0 0 1 8 5z" />
+                                        </svg>
+                                    </a>
+                                    @* Change Role *@
+                                    <a class="manageIcons" data-bs-toggle="tooltip" data-bs-placement="top" title="Change roles" asp-action="ChangeRoles" asp-route-Id="@user.Id" asp-route-ReturnUrl="@Context.Request.Path">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ee1826" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                            <path d="M7.27 1.047a1 1 0 0 1 1.46 0l6.345 6.77c.6.638.146 1.683-.73 1.683H11.5v1a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1v-1H1.654C.78 9.5.326 8.455.924 7.816L7.27 1.047zM4.5 13.5a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1v-1z" />
+                                        </svg>
+                                    </a>
+                                    @* Excel *@
+                                    <a class="manageIcons" data-bs-toggle="tooltip" data-bs-placement="top" title="Export to excel" asp-action="Export" asp-route-Id="@user.Id">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#77B238" class="bi bi-file-earmark-excel-fill" viewBox="0 0 16 16">
+                                            <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM5.884 6.68 8 9.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 10l2.233 2.68a.5.5 0 0 1-.768.64L8 10.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 10 5.116 7.32a.5.5 0 1 1 .768-.64z" />
+                                        </svg>
+                                    </a>
+                                    
+                                </th>
+                            </tr>
+                        }
+                </table>
+            </div>
+
+        }
+
+    </div>
+</div>
+
+<partial name="_Modal" />
+
+@section Plugins
+{
+    <script src="~/assets/plugins/datatables/datatables.bundle.js"></script>
+    <script src="~/assets/plugins/datatables/vfs_fonts.js" asp-append-version="true"></script>
+
+}
