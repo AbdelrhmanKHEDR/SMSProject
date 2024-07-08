@@ -10,6 +10,8 @@ namespace SMSProject.Mapping
         { 
             //Users
             CreateMap<ApplicationUser , UserViewModel>();
+            CreateMap<ApplicationUser , UserFormViewModel>();
+            CreateMap<UserViewModel, UserFormViewModel>();
         
         
         }

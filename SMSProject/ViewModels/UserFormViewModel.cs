@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SMSProject.ViewModels
 {
-    public class UserViewModel
+    public class UserFormViewModel
     {
         public string Id { get; set; } = null!;
         public string FullName { get; set; } = null!;
@@ -13,11 +13,11 @@ namespace SMSProject.ViewModels
 
         [MaxLength(100)]
         public string Grade { get; set; } = null!;
-        public bool IsDeleted { get; set; } 
+        public bool IsDeleted { get; set; }
         public DateTime CreatedOn { get; set; }
-        public DateTime? LastUpdatedOn { get; set; }
-        public string? Parents { get; set; }
-/*        public string? ParentsDetails { get; set; }
+        public string? Parents { get; set; }/*        public DateTime? LastUpdatedOn { get; set; }
+*/
+   /*     public string? ParentsDetails { get; set; }
         public string? ProfilePicture { get; set; }*/
         [Display(Name = "File")]
         [NotMapped] // Mark this property as not mapped to the database
@@ -29,6 +29,7 @@ namespace SMSProject.ViewModels
         public string? FileName { get; set; }
         //public string? Password { get; set; }
         public string? PhoneNumber { get; set; }
+
 
     }
 }
