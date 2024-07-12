@@ -4177,10 +4177,11 @@
 								<!--begin::Username-->
 								<div class="d-flex flex-column">
 									<div class="fw-bold d-flex align-items-center fs-5">
-										@User.FindFirst(ClaimTypes.Name)!.Value
+										@User.FindFirst(ClaimTypes.GivenName)!.Value
 										<span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Pro</span>
 									</div>
-									<a href="#" class="fw-semibold text-muted text-hover-primary fs-7">max@kt.com</a>
+									<a href="#" class="fw-semibold text-muted text-hover-primary fs-7">@User.FindFirst(ClaimTypes.Email)!.Value
+									</a>
 								</div>
 								<!--end::Username-->
 							</div>
@@ -4410,7 +4411,7 @@
 						<!--end::Menu item-->
 						<!--begin::Menu item-->
 						<div class="menu-item px-5 my-1">
-							<a href="account/settings.html" class="menu-link px-5">Account Settings</a>
+							<a asp-area="Identity" asp-page="/Account/Manage/Index" class="menu-link px-5">Account Settings</a>
 						</div>
 						<!--end::Menu item-->
 						<!--begin::Menu item-->
