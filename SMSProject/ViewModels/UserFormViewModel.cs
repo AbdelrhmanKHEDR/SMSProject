@@ -1,6 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Build.Framework;
+using SMSProject.Models;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+using UoN.ExpressiveAnnotations.NetCore.Attributes;
 namespace SMSProject.ViewModels
 {
     public class UserFormViewModel
@@ -10,8 +13,19 @@ namespace SMSProject.ViewModels
         public string Username { get; set; } = null!;
         public string Email { get; set; } = null!;
         public DateTime? DateOfBirth { get; set; }
+  
 
-        [MaxLength(100)]
+      
+		public string? Password { get; set; } 
+
+	
+		public string ?ConfirmPassword { get; set; } 
+
+		[Display(Name = "Roles")]
+		public IList<string> SelectedRoles { get; set; } = new List<string>();
+
+		public IEnumerable<SelectListItem>? Roles { get; set; }
+		[MaxLength(100)]
         public string Grade { get; set; } = null!;
         public bool IsDeleted { get; set; }
         public DateTime CreatedOn { get; set; }
@@ -29,7 +43,9 @@ namespace SMSProject.ViewModels
         public string? FileName { get; set; }
         //public string? Password { get; set; }
         public string? PhoneNumber { get; set; }
+		public string? Address { get; set; }
+		public string? Parents1 { get; set; }
+		public string? Parents2 { get; set; }
 
-
-    }
+	}
 }

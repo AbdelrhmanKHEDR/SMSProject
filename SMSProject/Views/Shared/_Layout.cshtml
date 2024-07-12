@@ -14,6 +14,7 @@
     <link href="~/assets/css/plugins.bundle.css" rel="stylesheet" />
     <link href="~/assets/css/style.bundle.css" rel="stylesheet" />
     <link href="~/css/style.css" rel="stylesheet" />
+    <link href="~/lib/flatpickr/flatpickr.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/SMSProject.styles.css" asp-append-version="true" />
 
@@ -29,11 +30,14 @@
             <!--begin::Page-->
             <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
                 <partial name="_Aside" />
+               
+
                 <!--begin::Wrapper-->
                 <div class="app-wrapper d-flex" id="kt_app_wrapper">
                     <!--begin::Wrapper container-->
                     <div class="app-container container-fluid">
                         <partial name="_Header" />
+
                         <div class="d-flex flex-column flex-column-fluid container-fluid">
                             <div class="content flex-column-fluid" id="kt_content">
                                 @RenderBody()
@@ -64,10 +68,22 @@
     <!--begin::Global Javascript Bundle(mandatory for all pages)-->
     <script src="~/assets/js/plugins.bundle.js"></script>
     <script src="~/assets/js/scripts.bundle.js"></script>
+    <script src="~/lib/flatpickr/flatpickr.min.js"></script>
+    <script src="~/lib/bootbox.js/bootbox.min.js"></script>
     <script src="~/lib/faviconx/faviconx-min.js"></script>
     <!--end::Global Javascript Bundle-->
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
     @RenderSection("Plugins", required: false)
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            flatpickr("#DateOfBirth", {
+                dateFormat: "Y-m-d",
+                maxDate: "today",
+                altInput: true,
+                altFormat: "F j, Y",
+            });
+        });
+    </script>
 </body>
 </html>

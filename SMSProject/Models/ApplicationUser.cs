@@ -28,6 +28,8 @@ namespace SMSProject.Models
         */
         public DateTime? LastUpdatedOn { get; set; }
         public string? Parents {  get; set; }
+        public string? Parents1 {  get; set; }
+        public string? Parents2 {  get; set; }
 /*        public string? ParentsDetails {  get; set; }*/
 /*        public string? ProfilePicture {  get; set; }
 */

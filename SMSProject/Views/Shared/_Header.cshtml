@@ -1,5 +1,8 @@
 ﻿@using System.Security.Claims
 <!--begin::Header-->
+
+@* @model SMSProject.ViewModels.UserViewModel *@
+
 <div id="kt_app_header" class="app-header">
 	<!--begin::Header container-->
 	<div class="app-container container-fluid d-flex align-items-stretch justify-content-between" id="kt_app_header_container">
@@ -4162,6 +4165,8 @@
 				<div class="app-navbar-item ms-5" id="kt_header_user_menu_toggle">
 					<!--begin::Menu wrapper-->
 					<div class="cursor-pointer symbol symbol-35px symbol-md-40px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
+@* 						<img class="symbol symbol-35px symbol-md-40px" src="@Url.Content(Model?.FilePath ?? "~/assets/media/avatars/default-avatar.jpg")" alt="user" />
+ *@
 						<img class="symbol symbol-35px symbol-md-40px" src="~/assets/media/avatars/300-3.jpg" alt="user" />
 					</div>
 					<!--begin::User account menu-->
