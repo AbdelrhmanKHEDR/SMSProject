@@ -22,6 +22,7 @@ namespace SMSProject.ViewModels
 		[MaxLength(100)]
         public string Grade { get; set; } = null!;
         public bool IsDeleted { get; set; } 
+        public bool IsEmailConfirmed { get; set; } 
         public DateTime CreatedOn { get; set; }
         public DateTime? LastUpdatedOn { get; set; }
         public string? Parents { get; set; }

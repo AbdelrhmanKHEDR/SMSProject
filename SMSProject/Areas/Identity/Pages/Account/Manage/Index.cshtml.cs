@@ -52,13 +52,18 @@ namespace SMSProject.Areas.Identity.Pages.Account.Manage
         /// </summary>
         public class InputModel
         {
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [Phone]
-            [Display(Name = "Phone number")]
+            [Required, MaxLength(100, ErrorMessage = Errors.MaxLength), Display(Name = "Full Name"),
+			RegularExpression(RegexPatterns.CharactersOnly_Eng, ErrorMessage = Errors.OnlyEnglishLetters)]
+			public string FullName { get; set; } = null!;
+
+			[Phone]
+            [Display(Name = "Phone number"), MaxLength(11, ErrorMessage = Errors.MaxLength)
+                ]
             public string PhoneNumber { get; set; }
+
+            public IFormFile Avatar { get; set; }
+
+            public bool ImageRemoved { get; set; }
         }
 
         private async Task LoadAsync(ApplicationUser user)

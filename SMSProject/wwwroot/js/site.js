@@ -154,13 +154,15 @@ $('body').delegate('.js-toggle-status', 'click', function () {
                 $.post({
                     url: btn.data('url'),
                     data: {
-                        '__RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                        '_RequestVerificationToken': $('input[name="_RequestVerificationToken"]').val()
                     },
                     success: function (lastUpdatedOn) {
-                        var row = btn.closest('tr');
-                        row.remove();
-
-                        showSuccessMessage();
+                        var row = btn.parents('tr');
+                        var status = row.find('.js-status');
+                        var newStatus = status.text().trim() === 'Deleted' ? 'Available' : 'Deleted';
+                        status.text(newStatus).toggleClass('badge-light-success badge-light-danger');
+                        row.find('.js-updated-on').html(lastUpdatedOn);
+                        row.addClass('animate_animated animate_flash');
 
                         showSuccessMessage();
                     },
