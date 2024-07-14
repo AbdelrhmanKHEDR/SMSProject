@@ -8,6 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\uploads\demo.png" />
+    <Content Remove="wwwroot\uploads\ITInventoryLogo.png" />
+    <Content Remove="wwwroot\uploads\ITINVLOGODARK.png" />
+    <Content Remove="wwwroot\uploads\ITINVLOGOLIGHT.png" />
+    <Content Remove="wwwroot\uploads\pixlr-image-generator-ffe73c70-654e-467f-b925-63a1b135a28e.png" />
+    <Content Remove="wwwroot\uploads\Screenshot 2024-06-11 at 12.53.10 AM.png" />
+    <Content Remove="wwwroot\uploads\WhatsApp Image 2024-05-22 at 11.58.21 AM (1).jpeg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.29" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.29" />
@@ -22,6 +32,16 @@
   <ItemGroup>
     <Folder Include="wwwroot\assets\img\" />
     <Folder Include="wwwroot\assets\NewFolder\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\uploads\demo.png" />
+    <None Include="wwwroot\uploads\ITInventoryLogo.png" />
+    <None Include="wwwroot\uploads\ITINVLOGODARK.png" />
+    <None Include="wwwroot\uploads\ITINVLOGOLIGHT.png" />
+    <None Include="wwwroot\uploads\pixlr-image-generator-ffe73c70-654e-467f-b925-63a1b135a28e.png" />
+    <None Include="wwwroot\uploads\Screenshot 2024-06-11 at 12.53.10 AM.png" />
+    <None Include="wwwroot\uploads\WhatsApp Image 2024-05-22 at 11.58.21 AM (1).jpeg" />
   </ItemGroup>
 
 </Project>

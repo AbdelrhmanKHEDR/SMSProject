@@ -9,9 +9,12 @@ namespace SMSProject.Mapping
         public MappingProfile() 
         { 
             //Users
-            CreateMap<ApplicationUser , UserViewModel>();
-            CreateMap<ApplicationUser , UserFormViewModel>();
-            CreateMap<UserViewModel, UserFormViewModel>();
+            CreateMap<ApplicationUser , UserViewModel>().ReverseMap(); ;
+            CreateMap<UserFormViewModel, ApplicationUser>()
+               .ForMember(dest => dest.NormalizedEmail, opt => opt.MapFrom(src => src.Email.ToUpper()))
+				.ForMember(dest => dest.NormalizedUserName, opt => opt.MapFrom(src => src.Username.ToUpper()))
+				.ReverseMap();
+			CreateMap<UserViewModel, UserFormViewModel>().ReverseMap(); ;
         
         
         }

@@ -2,44 +2,18 @@
 
 $(document).ready(function () {
 
+    var message = $('#Message').text();
+
+    if (message !== '') {
+
+        showSuccessMessage(message);
+
+    }
+
     $('.js-signout').on('click', function () {
 
         $('#SignOut').submit();
         $(this).parent().submit();
-    });
-
-    $('body').on('click', '.js-confirm', function () {
-        var btn = $(this);
-
-        bootbox.confirm({
-            message: btn.data('message'),
-            buttons: {
-                confirm: {
-                    label: 'Yes',
-                    className: 'btn-success'
-                },
-                cancel: {
-                    label: 'No',
-                    className: 'btn-secondary'
-                }
-            },
-            callback: function (result) {
-                if (result) {
-                    $.post({
-                        url: btn.data('url'),
-                        data: {
-                            '__RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
-                        },
-                        success: function () {
-                            showSuccessMessage();
-                        },
-                        error: function () {
-                            showErrorMessage();
-                        }
-                    });
-                }
-            }
-        });
     });
 
 });
@@ -72,26 +46,21 @@ function showErrorMessage(message = 'Something went wrong!') {
         }
     });
 }*/
-
-function showSuccessMessage(callback, message = 'Saved successfully!') {
-    Swal.fire({
+function showSuccessMessage(message = 'Your Status Has Changed Successfully!') {
+    swal.fire({
         icon: 'success',
-        title: 'Good Job',
-        text: message,
+        title: 'Saved Successfully',
+        text: message.responseText != undefined ? message.responseText : message,
         customClass: {
             confirmButton: "btn btn-primary"
-        }
-    }).then((result) => {
-        if (result.isConfirmed) {
-            callback();
         }
     });
 }
 
-function showErrorMessage(message = 'Something went wrong!') {
-    Swal.fire({
+function showErrorMessage(message = 'Somthing Went Wrong ! Contact with Adminstrator') {
+    swal.fire({
         icon: 'error',
-        title: 'Oops...',
+        title: 'Ooops...',
         text: message,
         customClass: {
             confirmButton: "btn btn-primary"
@@ -99,7 +68,8 @@ function showErrorMessage(message = 'Something went wrong!') {
     });
 }
 
-$(document).ready(function () {
+
+/*$(document).ready(function () {
     $('#userForm').on('submit', function (event) {
         event.preventDefault();
 
@@ -113,9 +83,12 @@ $(document).ready(function () {
             processData: false,
             success: function (response) {
                 if (response.success) {
-                   /* showSuccessMessage();
-                    window.location.href = '/Users/Index'; // Redirect to index page
-*/
+                  *//*  modal.find('.modal-body').html(form);
+                    $.validator.unobtrusive.parse(formData);*//*
+                    applySelect2();
+                  *//*  showSuccessMessage();
+                    window.location.href = '/Users/Index'; // Redirect to index page*//*
+
                     showSuccessMessage(function () {
                         window.location.href = '/Users/Index'; // Redirect to index page
                     });
@@ -124,13 +97,46 @@ $(document).ready(function () {
                     showErrorMessage(response.errors.join(', '));
                 }
             },
-            error: function (xhr, status, error) {
+           *//* error: function (xhr, status, error) {
                 showErrorMessage('Something went wrong!');
-            }
+            }*//*
         });
     });
 });
+$(document).ready(function () {
+    $('#userForm1').on('submit', function (event) {
+        event.preventDefault();
 
+        var formData = new FormData(this);
+
+        $.ajax({
+            type: 'POST',
+            url: '/Users/Edit', // Change to your actual controller and action
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                if (response.success) {
+                    *//*  modal.find('.modal-body').html(form);
+                      $.validator.unobtrusive.parse(formData);*//*
+                    applySelect2();
+                    *//*  showSuccessMessage();
+                      window.location.href = '/Users/Index'; // Redirect to index page*//*
+
+                    showSuccessMessage(function () {
+                        window.location.href = '/Users/Index'; // Redirect to index page
+                    });
+                    // Optionally, you can redirect or clear the form here
+                }*//* else {
+                    showErrorMessage(response.errors.join(', '));
+                }*//*
+            },
+            *//* error: function (xhr, status, error) {
+                 showErrorMessage('Something went wrong!');
+             }*//*
+        });
+    });
+});*/
 
 ////
 //Handle Toggle Status
@@ -150,27 +156,27 @@ $('body').delegate('.js-toggle-status', 'click', function () {
             }
         },
         callback: function (result) {
-            if (result) {
-                $.post({
-                    url: btn.data('url'),
-                    data: {
-                        '_RequestVerificationToken': $('input[name="_RequestVerificationToken"]').val()
-                    },
-                    success: function (lastUpdatedOn) {
-                        var row = btn.parents('tr');
-                        var status = row.find('.js-status');
-                        var newStatus = status.text().trim() === 'Deleted' ? 'Available' : 'Deleted';
-                        status.text(newStatus).toggleClass('badge-light-success badge-light-danger');
-                        row.find('.js-updated-on').html(lastUpdatedOn);
-                        row.addClass('animate_animated animate_flash');
+                if (result) {
+                    $.post({
+                        url: btn.data('url'),
+                        data: {
+                            '__RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                        },
+                        success: function (lastUpdatedOn) {
+                            var row = btn.parents('tr');
+                            var status = row.find('.js-status');
+                            var newStatus = status.text().trim() === 'Deleted' ? 'Available' : 'Deleted';
+                            status.text(newStatus).toggleClass('badge-light-success badge-light-danger');
+                            row.find('.js-updated-on').html(lastUpdatedOn);
+                            row.addClass('animate__animated animate__flash');
 
-                        showSuccessMessage();
-                    },
-                    error: function () {
-                        showErrorMessage();
-                    }
-                });
+                            showSuccessMessage();
+                        },
+                        error: function () {
+                            showErrorMessage();
+                        }
+                    });
+                }
             }
-        }
+        });
     });
-});

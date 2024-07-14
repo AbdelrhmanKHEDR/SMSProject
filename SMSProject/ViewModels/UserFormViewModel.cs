@@ -14,11 +14,12 @@ namespace SMSProject.ViewModels
         public string Email { get; set; } = null!;
         public DateTime? DateOfBirth { get; set; }
   
+
+      
 		public string? Password { get; set; } 
 
-        public bool IsEmailConfirmed { get; set; }
 	
-		public string? ConfirmPassword { get; set; } 
+		public string ?ConfirmPassword { get; set; } 
 
 		[Display(Name = "Roles")]
 		public IList<string> SelectedRoles { get; set; } = new List<string>();

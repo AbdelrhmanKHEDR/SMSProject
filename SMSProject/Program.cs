@@ -9,6 +9,7 @@ using SMSProject.Mapping;
 using SMSProject.Models;
 using SMSProject.Seeds;
 using System.Reflection;
+using UoN.ExpressiveAnnotations.NetCore.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,7 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
+builder.Services.AddExpressiveAnnotations();
 
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();

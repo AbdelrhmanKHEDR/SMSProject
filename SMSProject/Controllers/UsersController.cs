@@ -67,20 +67,9 @@ namespace SMSProject.Controllers
                     return View(viewModel);
                 }*/
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
-			var viewModel = new UserFormViewModel
-			{
-				Roles = await _roleManager.Roles
-							   .Select(r => new SelectListItem
-							   {
-								   Text = r.Name,
-								   Value = r.Name
-							   })
-							   .ToListAsync()
-			};
-
-			return View(viewModel);
+            return View();
         }
         [HttpPost]
         public async Task<IActionResult> Create(UserFormViewModel model)
@@ -221,72 +210,6 @@ namespace SMSProject.Controllers
                 return BadRequest(string.Join(',', result.Errors.Select(e => e.Description)));
             }
     */
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Unlock(string id)
-        {
-            var user = await _userManager.FindByIdAsync(id);
-
-            if (user is null)
-                return NotFound();
-
-            var isLocked = await _userManager.IsLockedOutAsync(user);
-
-            if (isLocked)
-                await _userManager.SetLockoutEndDateAsync(user, null);
-
-            return Ok();
-        }
-
-        [HttpGet]
-        [Authorize(Policy = "AllowManagersResetPassword")]
-        public async Task<IActionResult> ResetPassword(string id)
-        {
-            var user = await _userManager.FindByIdAsync(id);
-
-            if (user is null)
-                return NotFound();
-
-            var viewModel = new ResetPasswordFormViewModel { Id = user.Id };
-
-            return View("ResetPassword", viewModel);
-        }
-
-        [HttpPost]
-        [Authorize(Policy = "AllowManagersResetPassword")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ResetPassword(ResetPasswordFormViewModel model)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest();
-
-            var user = await _userManager.FindByIdAsync(model.Id);
-
-            if (user is null)
-                return NotFound();
-
-            var currentPasswordHash = user.PasswordHash;
-
-            await _userManager.RemovePasswordAsync(user);
-
-            var result = await _userManager.AddPasswordAsync(user, model.Password);
-
-            if (result.Succeeded)
-            {
-                /*user.LastUpdatedById = User.FindFirst(ClaimTypes.NameIdentifier)!.Value;*/
-                user.LastUpdatedOn = DateTime.Now;
-
-                await _userManager.UpdateAsync(user);
-
-                var viewModel = _mapper.Map<UserViewModel>(user);
-                TempData["Message"] = "The Password Has Changed Successfully";
-                return RedirectToAction("Index", "Home", viewModel);
-            }
-            user.PasswordHash = currentPasswordHash;
-            await _userManager.UpdateAsync(user);
-
-            return BadRequest();
-        }
     }
 
 
